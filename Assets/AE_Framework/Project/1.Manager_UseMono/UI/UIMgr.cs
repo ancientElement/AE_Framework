@@ -47,11 +47,8 @@ namespace AE_Framework
                 if (info.objInstance != null)
                 {
                     info.objInstance.gameObject.SetActive(true);
-                    info.objInstance.ShowMe();
-                    info.objInstance.transform.SetParent(Layers[layerNum].root);
+                    info.objInstance.transform.SetParent(Layers[layerNum]);
                     info.objInstance.transform.SetAsLastSibling();
-                    //存在面板 return
-                    return;
                 }
                 else
                 {
@@ -96,8 +93,10 @@ namespace AE_Framework
         {
             if (UIElementDic.ContainsKey(typeof(T)))
             {
+                if (UIElementDic[typeof(T)].objInstance == null) return;
+
                 //调用面板的hindme
-                UIElementDic[typeof(T)].objInstance.HindMe();
+                UIElementDic[typeof(T)].objInstance?.HindMe();
                 GameObject.Destroy(UIElementDic[typeof(T)].objInstance.gameObject);
                 //UIElementDic.Remove(typeof(T));
             }
