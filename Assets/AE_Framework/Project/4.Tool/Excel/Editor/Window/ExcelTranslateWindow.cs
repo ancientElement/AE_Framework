@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEditorInternal;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
-using System;
 
 namespace AE_Framework
 {
@@ -27,12 +26,12 @@ namespace AE_Framework
             root = rootVisualElement;
 
             // Import UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/ProjectBase/AE_Framework/4.Tool/Excel/Editor/Window/ExcelTranslateWindow.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/AE_Framework/Project/4.Tool/Excel/Editor/Window/ExcelTranslateWindow.uxml");
             visualTree.CloneTree(root);
 
             // A stylesheet can be added to a VisualElement.
             // The style will be applied to the VisualElement and all of its children.
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/ProjectBase/AE_Framework/4.Tool/Excel/Editor/Window/ExcelTranslateWindow.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/AE_Framework/Project/4.Tool/Excel/Editor/Window/ExcelTranslateWindow.uss");
             root.styleSheets.Add(styleSheet);
 
             InitElements();
