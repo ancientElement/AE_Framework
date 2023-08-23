@@ -97,8 +97,7 @@ namespace AE_Framework
 
                 //调用面板的hindme
                 UIElementDic[typeof(T)].objInstance?.HindMe();
-                GameObject.Destroy(UIElementDic[typeof(T)].objInstance.gameObject);
-                //UIElementDic.Remove(typeof(T));
+                ResMgr.Instance.ReleaseInstance(UIElementDic[typeof(T)].objInstance.gameObject);
             }
         }
 
