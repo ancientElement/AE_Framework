@@ -172,29 +172,33 @@ namespace AE_Framework
         /// <returns></returns>
         public T AddressableLoad<T>(string assetName, Transform parent = null) where T : UnityEngine.Object
         {
-            T obj = Addressables.LoadAssetAsync<T>(assetName).WaitForCompletion();
-            if (obj is GameObject)
+            if (typeof(T) == typeof(GameObject))
             {
-                return GameObject.Instantiate(obj, parent) as T;
+                return Addressables.InstantiateAsync(assetName).WaitForCompletion() as T;
             }
-            return obj;
+            else
+            {
+                return Addressables.LoadAssetAsync<T>(assetName).WaitForCompletion();
+            }
         }
 
         /// <summary>
         /// Addressable同步加载游戏物体
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="assetName"></param>
+        /// <param name="asset"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public T AddressableLoad<T>(AssetReference assetName, Transform parent = null) where T : UnityEngine.Object
+        public T AddressableLoad<T>(AssetReference asset) where T : UnityEngine.Object
         {
-            T obj = Addressables.LoadAssetAsync<T>(assetName).WaitForCompletion();
-            if (obj is GameObject)
+            if (typeof(T) == typeof(GameObject))
             {
-                return GameObject.Instantiate(obj, parent) as T;
+                return Addressables.InstantiateAsync(asset).WaitForCompletion() as T;
             }
-            return obj;
+            else
+            {
+                return Addressables.LoadAssetAsync<T>(asset).WaitForCompletion();
+            }
         }
 
         /// <summary>

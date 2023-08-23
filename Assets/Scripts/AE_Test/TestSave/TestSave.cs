@@ -12,15 +12,24 @@ public class TestSave : MonoBehaviour
     [SerializeField] GameObject father;
 
     [Button]
-    private void Random(int number, float radius)
+    private void Clear()
     {
+        if (father.transform.childCount == 0) return;
+
         for (int i = father.transform.childCount - 1; i >= 0; i--)
         {
-            
+            PoolMgr.Instance.PushGameObj("Cube", father.transform.GetChild(i).gameObject);
         }
+
+        PoolMgr.Instance.ClearGameObject("Cube");
+    }
+
+    [Button]
+    private void Random(int number, float radius)
+    {
         for (int i = 0; i < number; i++)
         {
-            var obj = PoolMgr.Instance.GetGameObj("Cube");
+            GameObject obj = PoolMgr.Instance.GetGameObj("Cube");
             obj.transform.position = new Vector3(UnityEngine.Random.Range(0, radius), UnityEngine.Random.Range(0, radius), UnityEngine.Random.Range(0, radius));
             obj.transform.SetParent(father.transform);
         }

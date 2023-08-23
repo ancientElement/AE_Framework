@@ -60,7 +60,7 @@ namespace AE_Framework
             for (int i = Datalist.Count - 1; i >= 0; i--)
             {
                 if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Addressables)
-                    ResMgr.Instance.ReleaseInstance(Datalist[i]);
+                    Debug.Log(ResMgr.Instance.ReleaseInstance(Datalist[i]));
                 else
                     GameObject.Destroy(Datalist[i]);
             }
@@ -264,6 +264,8 @@ namespace AE_Framework
         {
             if (isGameObject)
             {
+                if (gameObjectPoolDic == null || gameObjectPoolDic.Count == 0) return;
+
                 foreach (var item in gameObjectPoolDic)
                 {
                     item.Value.Destory();
@@ -273,6 +275,8 @@ namespace AE_Framework
 
             if (isObject)
             {
+                if (objectPoolDic == null || objectPoolDic.Count == 0) return;
+
                 objectPoolDic.Clear();
             }
         }
@@ -282,6 +286,8 @@ namespace AE_Framework
         }
         public void ClearGameObject(string name)
         {
+            if (!gameObjectPoolDic.ContainsKey(name)) return;
+
             gameObjectPoolDic[name].Destory();
             gameObjectPoolDic.Remove(name);
         }
@@ -292,10 +298,12 @@ namespace AE_Framework
         }
         public void ClearObject<T>()
         {
+            if (!objectPoolDic.ContainsKey(typeof(T).FullName)) return;
             objectPoolDic.Remove(typeof(T).FullName);
         }
         public void ClearObject(Type type)
         {
+            if (!objectPoolDic.ContainsKey(type.FullName)) return;
             objectPoolDic.Remove(type.FullName);
         }
 

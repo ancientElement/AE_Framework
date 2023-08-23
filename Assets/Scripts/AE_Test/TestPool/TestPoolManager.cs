@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class TestPoolManager : MonoBehaviour
 {
-    public string tempStrin;
+    public string tempString;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class TestPoolManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             TestClass test = PoolMgr.Instance.GetObj<TestClass>();
-            test.name = tempStrin;
+            test.name = tempString;
             test.Print();
             PoolMgr.Instance.PushObj<TestClass>(test);
         }

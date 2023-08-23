@@ -19,7 +19,7 @@ public class StartPanel : BasePanel
 
     private void Start()
     {
-        Invoke(nameof(AddCustomEventListener), 1);
+        AddCustomEventListener();
     }
 
     private void AddCustomEventListener()
