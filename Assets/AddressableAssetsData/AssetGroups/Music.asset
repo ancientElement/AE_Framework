@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Music
+  m_EditorClassIdentifier: 
+  m_GroupName: Music
+  m_Data:
+    m_SerializedData: []
+  m_GUID: efcf9f9f2d1653d47bdc692974983101
+  m_SerializeEntries:
+  - m_GUID: 4f1a08884044eb74595c9984db184813
+    m_Address: BK1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1d74880bed4586644a16a79a2d9dc8af
+    m_Address: 13_Ice_explosion_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c749f8506b6f6914b99ee4236165e377
+    m_Address: BK1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 438bb6a70ac71f64fbeedc2b8ffb2a84, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2ea5cfb2d89025f4d85d246adcd80100, type: 2}
+    - {fileID: 11400000, guid: 98dcce61ae709b248a9160d3b228b353, type: 2}
