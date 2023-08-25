@@ -4,8 +4,6 @@ using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using static AE_Framework.GameSettings;
-using Sirenix.Utilities;
-using System.Linq;
 
 namespace AE_Framework
 {
@@ -194,6 +192,15 @@ namespace AE_Framework
                     }
                     return obj;
                 }
+            }
+            return null;
+        }
+
+        public GameObject GetGameObjNotInRes(string name)
+        {
+            if (gameObjectPoolDic.ContainsKey(name) && gameObjectPoolDic[name].Datalist.Count > 0)
+            {
+                return gameObjectPoolDic[name].GetObj();
             }
             return null;
         }

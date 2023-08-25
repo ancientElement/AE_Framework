@@ -30,7 +30,7 @@
 .plastic/
 
 # Plugins
-Assets/AE_Framework/Plugins
+Assets/Pakages
 
 # Gradle cache directory
 .gradle/
