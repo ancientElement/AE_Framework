@@ -1,6 +1,4 @@
 ﻿//using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AE_Framework
@@ -15,7 +13,8 @@ namespace AE_Framework
         private static T instance;
 
         //返回单例
-        public static T Instance { get { return instance; } protected set { instance = value; } }
+        public static T Instance
+        { get { return instance; } protected set { instance = value; } }
 
         //虚方法让子类重写
         protected virtual void Awake()

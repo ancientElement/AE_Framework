@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEditorInternal;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using System;
 
 namespace AE_Framework
 {
-
     public class ExcelTranslateWindow : EditorWindow
     {
         [MenuItem("Tools/AE_Framework/ExcelTranslateWindow")]
@@ -51,6 +51,7 @@ namespace AE_Framework
         IMGUIContainer ExcalPathsArea;
         Button GenerateSOContainerCSButton;
         Button GenerateSOCSButton;
+        Button GenerateJSONCSButton;
 
         /// <summary>
         /// 初始化元素
@@ -67,6 +68,7 @@ namespace AE_Framework
             ExcalPathsArea = root.Q<IMGUIContainer>(nameof(ExcalPathsArea));
             GenerateSOContainerCSButton = root.Q<Button>(nameof(GenerateSOContainerCSButton));
             GenerateSOCSButton = root.Q<Button>(nameof(GenerateSOCSButton));
+            GenerateJSONCSButton = root.Q<Button>(nameof(GenerateJSONCSButton));
         }
 
         #region 生成区域
@@ -88,6 +90,15 @@ namespace AE_Framework
 
             GenerateSOContainerCSButton.clicked += GenerateSOContainerCSButton_clicked;
             GenerateSOCSButton.clicked += GenerateSOCSButton_clicked;
+            GenerateJSONCSButton.clicked += GenerateJSONContainerCSButton_clicked;
+        }
+
+        private void GenerateJSONContainerCSButton_clicked()
+        {
+            foreach (string item in excelPaths)
+            {
+                ExcelTool.GenerateJson(new FileInfo(item));
+            }
         }
 
         private void GenerateSOCSButton_clicked()

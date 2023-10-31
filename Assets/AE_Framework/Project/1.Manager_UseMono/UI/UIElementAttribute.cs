@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
 
 namespace AE_Framework
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    /// <summary>
-    /// UI元素的特性
-    /// 每个UI窗口都应该添加
-    /// </summary>
     public class UIElementAttribute : Attribute
     {
         public bool isCache;//是否缓存

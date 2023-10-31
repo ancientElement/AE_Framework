@@ -5,7 +5,6 @@ namespace AE_Framework
 {
     public static class SaveItemObjectFactory
     {
-
         /// <summary>
         /// 保存
         /// </summary>
@@ -17,6 +16,7 @@ namespace AE_Framework
             {
                 saveItem.objects.Add(typeof(T).FullName);
             }
+
             BinaryDataMgr.Instance.Save(obj, saveItem.SaveItemPath, typeof(T).FullName, string.Empty);
             saveItem.lastSaveTime = DateTime.Now;
             SaveMgrDataFactory.SaveSaveMgrData(saveItem.SaveMgrData);
@@ -37,6 +37,7 @@ namespace AE_Framework
 
             SaveMgrDataFactory.SaveSaveMgrData(saveItem.SaveMgrData);
         }
+
         public static void DeleteObject(SaveItem saveItem, string objectTypeFullName)
         {
             BinaryDataMgr.Instance.Delete($"{saveItem.SaveItemPath}/{objectTypeFullName}");
@@ -50,7 +51,10 @@ namespace AE_Framework
         public static T LoadObj<T>(SaveItem saveItem) where T : class
         {
             if (!saveItem.objects.Contains(typeof(T).FullName))
-            { Debug.LogWarning($"未包含该数据{typeof(T)}"); return null; }
+            {
+                Debug.LogWarning($"未包含该数据{typeof(T)}");
+                return null;
+            }
             T temp = BinaryDataMgr.Instance.Load<T>(saveItem.SaveItemPath, $"{typeof(T).FullName}", string.Empty);
             return temp;
         }

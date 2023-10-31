@@ -295,7 +295,6 @@ GameObject:
   - component: {fileID: 2420946379974999986}
   - component: {fileID: 8510610338599376710}
   - component: {fileID: 1588101260}
-  - component: {fileID: 2930907110825976598}
   - component: {fileID: 2420946379974999987}
   - component: {fileID: 2462875964332130288}
   m_Layer: 0
@@ -321,7 +320,7 @@ Transform:
   - {fileID: 9159247802254642328}
   - {fileID: 2420946379444485658}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8510610338599376710
 MonoBehaviour:
@@ -348,20 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076eacbd9534e7a42aad3dae3d7e956c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2930907110825976598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420946379974999984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3928bcb8f24cad4f9a7499783ded979, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectPoolSettings: {fileID: 0}
-  poolObj: {fileID: 0}
 --- !u!114 &2420946379974999987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Music_base: {fileID: 7860533120582224990}
-  bkVolume: 0
+  bkVolume: 0.5
 --- !u!1 &2469909976442635171
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +506,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

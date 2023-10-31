@@ -2,7 +2,6 @@ using AE_Framework;
 using System.Collections;
 using UnityEngine;
 
-
 public class NoMonoTestTest
 {
     public void Update()

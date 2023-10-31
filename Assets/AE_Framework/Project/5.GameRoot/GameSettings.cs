@@ -1,34 +1,32 @@
-﻿using System;
-using UnityEngine;
-using System.Reflection;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 
 namespace AE_Framework
 {
     [CreateAssetMenu(fileName = "GameSettings", menuName = "AE_Framework/Config/GameSetting")]
     public class GameSettings : SerializedScriptableObject
     {
-        public enum AssetLoadMethod
-        {
-            Addressables,
-            Reaourses
-        }
-
-        [Title("资源加载")]
-        [LabelText("资源加载方式")]
-        public AssetLoadMethod assetLoadMethod = AssetLoadMethod.Addressables;
+        // public enum AssetLoadMethod
+        // {
+        //     Addressables,
+        //     Reaourses
+        // }
+        //
+        // [Title("资源加载")]
+        // [LabelText("资源加载方式")]
+        // public AssetLoadMethod assetLoadMethod = AssetLoadMethod.Addressables;
 
         [Title("UI窗口设置"), LabelText("窗口信息")]
         [DictionaryDrawerSettings(KeyLabel = "类型", ValueLabel = "UI窗口数据")]
         public Dictionary<Type, UIElement> UIElementDic = new Dictionary<Type, UIElement>();
 
 #if UNITY_EDITOR
+
         [Button(Name = "初始化游戏配置", ButtonHeight = 50)]
         [GUIColor(0, 1, 0)]
-        /// <summary>
-        /// 编译前执行函数
-        /// </summary>
         public void InitForEditor()
         {
             UIElementAttributeOnEditor();
@@ -64,6 +62,7 @@ namespace AE_Framework
                 }
             }
         }
+
 #endif
     }
 }

@@ -1,6 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,10 +9,12 @@ namespace AE_Framework
         /// <summary>
         /// 框架设置
         /// </summary>
-        [LabelText("框架设置")]
-        [SerializeField]
-        private GameSettings gameSetting;
-        public GameSettings GameSetting { get { return gameSetting; } }
+        [LabelText("框架设置")][SerializeField] private GameSettings gameSetting;
+
+        public GameSettings GameSetting
+        {
+            get { return gameSetting; }
+        }
 
         protected override void Awake()
         {
@@ -23,6 +23,7 @@ namespace AE_Framework
                 Destroy(gameObject);
                 return;
             }
+
             base.Awake();
             DontDestroyOnLoad(gameObject);
             // 初始化所有管理器
@@ -39,13 +40,12 @@ namespace AE_Framework
         }
 
 #if UNITY_EDITOR
+
         static GameRoot()
         {
-            EditorApplication.update += () =>
-            {
-                InitForEditor();
-            };
+            EditorApplication.update += () => { InitForEditor(); };
         }
+
         [InitializeOnLoadMethod]
         public static void InitForEditor()
         {
@@ -54,15 +54,17 @@ namespace AE_Framework
             {
                 return;
             }
+
             if (Instance == null && GameObject.Find("GameRoot") != null)
             {
                 Instance = GameObject.Find("GameRoot").GetComponent<GameRoot>();
                 // 清空事件
-                EventCenter.Instance.Clear();
+                EventCenter.Clear();
                 Instance.InitManager();
                 Instance.GameSetting.InitForEditor();
             }
         }
+
 #endif
     }
 }

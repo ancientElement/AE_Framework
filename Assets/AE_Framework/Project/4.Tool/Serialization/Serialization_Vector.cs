@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace AE_Framework
@@ -58,7 +57,7 @@ namespace AE_Framework
     public static class Serialization_VectorExtensions
     {
         /// <summary>
-        /// 可序列化 转 Vector3unity Vector3 
+        /// 可序列化 转 Vector3unity Vector3
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
@@ -68,7 +67,7 @@ namespace AE_Framework
         }
 
         /// <summary>
-        /// unity Vector3 转 可序列化Vector3 
+        /// unity Vector3 转 可序列化Vector3
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
@@ -78,7 +77,7 @@ namespace AE_Framework
         }
 
         /// <summary>
-        /// 可序列化Vector3 转 unity Vector3Int  
+        /// 可序列化Vector3 转 unity Vector3Int
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
@@ -108,7 +107,7 @@ namespace AE_Framework
         }
 
         /// <summary>
-        /// 可序列化Vector2 转 unity Vector2Int  
+        /// 可序列化Vector2 转 unity Vector2Int
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>

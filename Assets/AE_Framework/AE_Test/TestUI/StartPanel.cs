@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using AE_Framework;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [UIElement(false, "StartPanel", 1)]
 public class StartPanel : BasePanel
 {
-
-    [SerializeField] Image AImage;
-    [SerializeField] Image BImage;
+    [SerializeField] private Image AImage;
+    [SerializeField] private Image BImage;
 
     protected void Awake()
     {
@@ -34,7 +31,7 @@ public class StartPanel : BasePanel
         });
     }
 
-    public override void ShowMe()
+    public override void ShowMe(params object[] args)
     {
         base.ShowMe();
     }
@@ -47,6 +44,7 @@ public class StartPanel : BasePanel
             case "btnStart":
                 Debug.Log("start");
                 break;
+
             case "btnQuit":
                 Debug.Log("quit");
                 break;

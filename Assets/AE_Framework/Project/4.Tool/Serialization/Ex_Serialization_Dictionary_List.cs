@@ -1,7 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace AE_Framework
@@ -37,12 +36,14 @@ namespace AE_Framework
             }
             set { this[key] = value; }
         }
+
         public bool ContainsKey(K key)
         {
             if (KeyList.Count == 0)
                 OnValueChanged();
             return KeyList.Contains(key);
         }
+
         public V GetValue(K key)
         {
             if (KeyList.Count == 0)
@@ -50,6 +51,7 @@ namespace AE_Framework
             int index = KeyList.IndexOf(key);
             return ValueList[index].Value;
         }
+
         public bool TryGetValue(K key, ref V value)
         {
             if (KeyList.Count == 0)
@@ -62,6 +64,7 @@ namespace AE_Framework
             }
             return false;
         }
+
         public void Remove(K key)
         {
             if (KeyList.Count == 0)
@@ -69,6 +72,7 @@ namespace AE_Framework
             int index = KeyList.IndexOf(key);
             RemoveAt(index);
         }
+
         public void RemoveAt(int index)
         {
             if (KeyList.Count == 0)
@@ -76,6 +80,7 @@ namespace AE_Framework
             KeyList.RemoveAt(index);
             ValueList.RemoveAt(index);
         }
+
         public void Add(K key = default, V value = default)
         {
             if (KeyList.Count == 0)
@@ -83,6 +88,7 @@ namespace AE_Framework
             KeyList.Add(key);
             ValueList.Add(new ValueContainer() { Key = key, Value = value });
         }
+
         public void Clear()
         {
             if (KeyList.Count == 0)
@@ -101,6 +107,7 @@ namespace AE_Framework
         }
 
 #if UNITY_EDITOR
+
         [OnInspectorGUI]
         private void OnValueChangedEditor()
         {
@@ -110,6 +117,7 @@ namespace AE_Framework
                 KeyList.Add(ValueList[i].Key);
             }
         }
+
 #endif
     }
 }

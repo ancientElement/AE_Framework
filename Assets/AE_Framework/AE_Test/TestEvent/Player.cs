@@ -1,7 +1,7 @@
 ﻿using AE_Framework;
 using UnityEngine;
 
-public class Player: MonoBehaviour
+public class Player : MonoBehaviour
 {
     public string playerName = "9521";
 
@@ -12,6 +12,6 @@ public class Player: MonoBehaviour
 
     public void PlayerDie()
     {
-        EventCenter.Instance.TriggerEvent("PLAYER_DIE");
+        EventCenter.TriggerEvent("PLAYER_DIE");
     }
 }

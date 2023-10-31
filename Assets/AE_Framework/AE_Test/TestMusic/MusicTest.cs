@@ -1,12 +1,11 @@
 ﻿using AE_Framework;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class MusicTest : MonoBehaviour
 {
     private AudioSource source;
-    [SerializeField, Range(0, 1)] float spatialBlend;
+    [SerializeField, Range(0, 1)] private float spatialBlend;
+
     private void Start()
     {
         MusicMgr.Instance.ChageBKVolume(1);
@@ -19,7 +18,7 @@ public class MusicTest : MonoBehaviour
         float heigth = 0;
         if (GUI.Button(new Rect(0, 0, 200, 100), "播放背景音乐", style))
         {
-            MusicMgr.Instance.PlayBKmusic("BK1");
+            MusicMgr.Instance.PlayBKMusic("BK1");
         }
         heigth += 100;
         if (GUI.Button(new Rect(0, heigth, 200, 100), "暂停背景音乐", style))
@@ -38,7 +37,6 @@ public class MusicTest : MonoBehaviour
             {
                 source = res;
             }, spatialBlend: spatialBlend);
-
         }
         heigth += 100;
         if (GUI.Button(new Rect(0, heigth, 200, 100), "停止音效", style))

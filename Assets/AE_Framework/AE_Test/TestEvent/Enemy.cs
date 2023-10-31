@@ -1,13 +1,11 @@
 ﻿using AE_Framework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTest : MonoBehaviour
 {
     private void Awake()
     {
-        EventCenter.Instance.AddEventListener("PLAYER_DIE", PlayerDie);
+        EventCenter.AddEventListener("PLAYER_DIE", PlayerDie);
     }
 
     public void PlayerDie()
@@ -17,6 +15,6 @@ public class EnemyTest : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventCenter.Instance.RemoveEventListener("PLAYER_DIE", PlayerDie);
+        EventCenter.RemoveEventListener("PLAYER_DIE", PlayerDie);
     }
 }

@@ -28,6 +28,10 @@ namespace AE_Framework
         /// </summary>
         public static string DATA_CONTAINER_PATH = Application.dataPath + "/Scripts/ExcelData/Container/";
         /// <summary>
+        /// JSON存放位置
+        /// </summary>
+        public static string JSON_CONTAINER_PATH = Application.dataPath + "/Scripts/ExcelData/JSON/";
+        /// <summary>
         /// Excel表开始位置
         /// </summary>
         public static int BEGING_INDEX = 4;
@@ -180,8 +184,8 @@ namespace AE_Framework
         {
             if (!Directory.Exists(SO_Data_Path))
                 Directory.CreateDirectory(SO_Data_Path);
-            //主键变量名
 
+            //主键变量名
             string keyName = GetVariableNameRow(table)[GetKeyIndex(table)].ToString();
             Debug.Log(keyName);
 
@@ -283,6 +287,94 @@ namespace AE_Framework
             //保存脚本
             File.WriteAllText(DATA_ClASS_PATH + table.TableName + ".cs", scriptString);
             //刷新
+            AssetDatabase.Refresh();
+        }
+
+        /// <summary>
+        /// 生成JSON
+        /// </summary>
+        public static void GenerateJson(FileInfo fInfo)
+        {
+            //数据表容器
+            DataTableCollection tableCollection;
+
+            //判断xlsx和xls文件
+            if (fInfo.Extension != ".xlsx" && fInfo.Extension != ".xls")
+                return;
+
+            //得到文件所有的表
+            using (FileStream fs = fInfo.Open(FileMode.Open, FileAccess.Read))
+            {
+                IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fs);
+                tableCollection = excelDataReader.AsDataSet().Tables;
+                fs.Close();
+            }
+
+            //遍历表的信息
+            foreach (DataTable table in tableCollection)
+            {
+                GenerateExcelJson(table);
+            }
+        }
+        private static void GenerateExcelJson(DataTable table)
+        {
+            if (!Directory.Exists(JSON_CONTAINER_PATH))
+                Directory.CreateDirectory(JSON_CONTAINER_PATH);
+
+            //主键变量名
+            string keyName = GetVariableNameRow(table)[GetKeyIndex(table)].ToString();
+            // Debug.Log(keyName);
+
+            string jsontxt = string.Empty;
+
+            DataRow row;
+            DataRow variableTypeName = GetVariableTypeNameRow(table);
+            DataRow variableName = GetVariableNameRow(table);
+
+            jsontxt += "[\r\n";
+
+            //遍历所有行
+            for (int i = BEGING_INDEX; i < table.Rows.Count; i++)
+            {
+                //每一行
+                row = table.Rows[i];
+
+                jsontxt += "{\r\n";
+
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    string tempVariableName = (string)variableName[j];//变量名
+
+                    switch (variableTypeName[j].ToString())
+                    {
+                        case "int":
+                            jsontxt += $"\"{tempVariableName}\":{int.Parse(row[j].ToString())}";
+                            break;
+                        case "float":
+                            jsontxt += $"\"{tempVariableName}\":{float.Parse(row[j].ToString())}";
+                            break;
+                        case "bool":
+                            jsontxt += $"\"{tempVariableName}\":{bool.Parse(row[j].ToString())})";
+                            break;
+                        case "string":
+                            jsontxt += $"\"{tempVariableName}\":\"{row[j]}\"";
+                            break;
+                    }
+
+                    if (j != table.Columns.Count - 1)
+                        jsontxt += ",";
+                    jsontxt += "\r\n";
+                }
+
+                jsontxt += "}";
+                if (i != table.Rows.Count - 1)
+                    jsontxt += ",";
+                jsontxt += "\r\n";
+            }
+
+            jsontxt += "]";
+
+            File.WriteAllText(JSON_CONTAINER_PATH + $"{table.TableName}.json", jsontxt);
             AssetDatabase.Refresh();
         }
 

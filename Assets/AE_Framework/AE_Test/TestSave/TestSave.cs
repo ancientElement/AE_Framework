@@ -1,15 +1,13 @@
-using System;
-using UnityEngine;
-using System.Collections.Generic;
-using UnityEditor;
-using Sirenix.Utilities;
-using Sirenix.OdinInspector;
 using AE_Framework;
+using Sirenix.OdinInspector;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class TestSave : MonoBehaviour
 {
-    [SerializeField] TestMap TestMap = new TestMap();
-    [SerializeField] GameObject father;
+    [SerializeField] private TestMap TestMap = new TestMap();
+    [SerializeField] private GameObject father;
 
     [Button]
     private void Clear()
@@ -18,10 +16,10 @@ public class TestSave : MonoBehaviour
 
         for (int i = father.transform.childCount - 1; i >= 0; i--)
         {
-            PoolMgr.Instance.PushGameObj("Cube", father.transform.GetChild(i).gameObject);
+            PoolMgr.PushGameObj("Cube", father.transform.GetChild(i).gameObject);
         }
 
-        PoolMgr.Instance.ClearGameObject("Cube");
+        PoolMgr.ClearGameObject("Cube");
     }
 
     [Button]
@@ -29,8 +27,9 @@ public class TestSave : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            GameObject obj = PoolMgr.Instance.GetGameObj("Cube");
-            obj.transform.position = new Vector3(UnityEngine.Random.Range(0, radius), UnityEngine.Random.Range(0, radius), UnityEngine.Random.Range(0, radius));
+            GameObject obj = PoolMgr.GetGameObj("Cube");
+            obj.transform.position = new Vector3(UnityEngine.Random.Range(0, radius),
+                UnityEngine.Random.Range(0, radius), UnityEngine.Random.Range(0, radius));
             obj.transform.SetParent(father.transform);
         }
     }
@@ -43,21 +42,23 @@ public class TestSave : MonoBehaviour
         {
             gameObjects.Add(father.transform.GetChild(i));
         }
+
         TestMap.Save(gameObjects);
-        SaveMgr.Instance.SaveObject<TestMap>(TestMap);
+        SaveMgr.SaveObject<TestMap>(TestMap);
     }
 
     [Button]
-    private async void Load()
+    private void Load()
     {
-        TestMap = SaveMgr.Instance.LoadObj<TestMap>();
+        TestMap = SaveMgr.LoadObj<TestMap>();
         List<GameObject> gameObjects = new List<GameObject>();
         for (int i = 0; i < TestMap.transforms.Count; i++)
         {
-            GameObject obj = await PoolMgr.Instance.GetGameObjAsync("Cube");
+            GameObject obj = PoolMgr.GetGameObj("Cube");
             obj.transform.SetParent(father.transform);
             gameObjects.Add(obj);
         }
+
         TestMap.Load(gameObjects);
     }
 }

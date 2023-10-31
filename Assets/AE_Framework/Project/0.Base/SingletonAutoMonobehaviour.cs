@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AE_Framework
 {
@@ -18,7 +16,7 @@ namespace AE_Framework
             {
                 if (instance == null)
                 {
-                    //创建依附的对象 
+                    //创建依附的对象
                     GameObject obj = new GameObject();
                     obj.name = typeof(T).ToString();
                     DontDestroyOnLoad(obj);//场景转换不删除

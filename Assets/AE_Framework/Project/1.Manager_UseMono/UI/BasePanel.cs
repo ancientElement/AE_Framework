@@ -18,7 +18,7 @@ namespace AE_Framework
         /// <summary>
         /// 寻找到所有控件并储存
         /// </summary>
-        protected void FindAllControl ()
+        protected void FindAllControl()
         {
             FindControl<Button>();
             FindControl<Image>();
@@ -30,23 +30,21 @@ namespace AE_Framework
         }
 
         /// <summary>
-        /// 重写此方法判断哪个按钮被点击 
+        /// 重写此方法判断哪个按钮被点击
         /// 并作出相应相应
         /// </summary>
         /// <param name="btnName">按钮名字</param>
         protected virtual void OnColick(string btnName)
         {
-
         }
 
         /// <summary>
-        /// 重写此方法判断哪个单选框被点击 
+        /// 重写此方法判断哪个单选框被点击
         /// </summary>
         /// <param name="toggleName"></param>
         /// <param name="value"></param>
         protected virtual void onValueChanged(string toggleName, bool value)
         {
-
         }
 
         /// <summary>
@@ -111,9 +109,8 @@ namespace AE_Framework
         /// <summary>
         /// 用UIMgr 显示面板时自动调用
         /// </summary>
-        public virtual void ShowMe()
+        public virtual void ShowMe(params object[] args)
         {
-
         }
 
         /// <summary>
@@ -121,7 +118,6 @@ namespace AE_Framework
         /// </summary>
         public virtual void HindMe()
         {
-
         }
 
         [ContextMenu("UI组件自动赋值/精确(物体名与变量名一致)")]
@@ -135,6 +131,7 @@ namespace AE_Framework
             FindController<ScrollRect>();
             FindController<InputField>();
         }
+
         private void FindController<T>() where T : UIBehaviour
         {
             Type type = GetType();

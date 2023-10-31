@@ -1,24 +1,20 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static AE_Framework.GameSettings;
 
 namespace AE_Framework
 {
     public class MusicMgr : SingletonMonoMgr<MusicMgr>
     {
-        [SerializeField] private GameObject Music_base;//音效挂载的游戏对象
+        [SerializeField] private GameObject Music_base; //音效挂载的游戏对象
 
-        private AudioSource bkMusic;//背景音乐组件
-        [SerializeField] private float bkVolume = 0.5f;//背景音乐音量
+        private AudioSource bkMusic; //背景音乐组件
+        [SerializeField] private float bkVolume = 0.5f; //背景音乐音量
 
-        private List<AudioSource> soundMusicList = new List<AudioSource>();//音效组件
+        private List<AudioSource> soundMusicList = new List<AudioSource>(); //音效组件
 
         //Resources下的加载文件夹
-        private static readonly string BKResourcesDir = "Music/BK/";
-        private static readonly string SoundResourcesDir = "Music/Sound/";
         private static readonly string AudioSourceResourcesDir = "AudioSource";
 
         /// <summary>
@@ -40,7 +36,8 @@ namespace AE_Framework
         /// <param name="isLoop"></param>
         /// <param name="spatialBlend"></param>
         /// <param name="mute"></param>
-        private void SetAudioSource(AudioSource audioSource, AudioClip audioClip, bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        private void SetAudioSource(AudioSource audioSource, AudioClip audioClip, bool isLoop = false,
+            float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
             audioSource.clip = audioClip;
             //设置音量
@@ -59,7 +56,7 @@ namespace AE_Framework
         /// 播放背景音乐
         /// </summary>
         /// <param name="name"></param>
-        public async void PlayBKmusic(string name)
+        public void PlayBKMusic(string name)
         {
             //播放背景音乐
             //bkMusic为空则为bkMusic创建挂载的空对象
@@ -68,9 +65,8 @@ namespace AE_Framework
             {
                 bkMusic = Music_base.AddComponent<AudioSource>();
             }
-            if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Reaourses)
-                name = BKResourcesDir + name;
-            SetAudioSource(bkMusic, await ResMgr.Instance.AutoLoadAsync<AudioClip>(name), isLoop: true);
+
+            SetAudioSource(bkMusic, ResMgr.AddressableLoad<AudioClip>(name), isLoop: true);
             bkMusic.Play();
         }
 
@@ -92,11 +88,11 @@ namespace AE_Framework
             if (bkMusic == null) return;
             bkMusic.Stop();
             //释放资源
-            ResMgr.Instance.Release(bkMusic.clip);
+            ResMgr.Release(bkMusic.clip);
             bkMusic.clip = null;
         }
 
-        #endregion
+        #endregion 背景音乐
 
         #region 音效
 
@@ -122,12 +118,12 @@ namespace AE_Framework
         /// <param name="name"></param>
         /// <param name="isLoop"></param>
         /// <param name="callback"></param>
-        public void PlaySoundMusic(string name, bool isLoop = false, Action<AudioSource> callback = null, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        public void PlaySoundMusic(string name, bool isLoop = false, Action<AudioSource> callback = null,
+            float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
             //音效加载完后
-            if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Reaourses)
-                name = SoundResourcesDir + name;
-            ODPlaySoundMusic(ResMgr.Instance.AutoLoad<AudioClip>(name), callback, isLoop, spatialBlend, mute, volumn);
+            ODPlaySoundMusic(ResMgr.AddressableLoad<AudioClip>(name), callback, isLoop, spatialBlend, mute,
+                volumn);
         }
 
         /// <summary>
@@ -136,19 +132,20 @@ namespace AE_Framework
         /// <param name="name"></param>
         /// <param name="isLoop"></param>
         /// <param name="callback"></param>
-        public void PlaySoundMusic(string name, Vector3 worldPosition, Action<AudioSource> callback = null, bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        public void PlaySoundMusic(string name, Vector3 worldPosition, Action<AudioSource> callback = null,
+            bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
             //音效加载完后
-            if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Reaourses)
-                name = SoundResourcesDir + name;
-            //音效加载完后
-            ODPlaySoundMusic(ResMgr.Instance.AutoLoad<AudioClip>(name), worldPosition, callback, isLoop, spatialBlend, mute);
+            ODPlaySoundMusic(ResMgr.AddressableLoad<AudioClip>(name), worldPosition, callback, isLoop,
+                spatialBlend,
+                mute);
         }
 
         /// <summary>
         /// 播放音效
         /// </summary>
-        public void PlaySoundMusic(AudioClip audioClip, bool isLoop = false, Action<AudioSource> callback = null, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        public void PlaySoundMusic(AudioClip audioClip, bool isLoop = false, Action<AudioSource> callback = null,
+            float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
             ODPlaySoundMusic(audioClip, callback, isLoop, spatialBlend, mute, volumn);
         }
@@ -156,7 +153,8 @@ namespace AE_Framework
         /// <summary>
         /// 播放音效 3D
         /// </summary>
-        public void PlaySoundMusic(AudioClip audioClip, Vector3 worldPosition, Action<AudioSource> callback = null, bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        public void PlaySoundMusic(AudioClip audioClip, Vector3 worldPosition, Action<AudioSource> callback = null,
+            bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
             //音效加载完后
             ODPlaySoundMusic(audioClip, worldPosition, callback, isLoop, spatialBlend, mute, volumn);
@@ -169,9 +167,10 @@ namespace AE_Framework
         /// <param name="worldPosition"></param>
         /// <param name="isLoop"></param>
         /// <param name="callback"></param>
-        private async void ODPlaySoundMusic(AudioClip audioClip, Action<AudioSource> callback = null, bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        private void ODPlaySoundMusic(AudioClip audioClip, Action<AudioSource> callback = null,
+            bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
         {
-            GameObject obj = await PoolMgr.Instance.GetGameObjAsync("AudioSource");
+            GameObject obj = PoolMgr.GetGameObj("AudioSource");
             AudioSource audioSource = obj.GetComponent<AudioSource>();
             //添加进soundMusicList
             soundMusicList.Add(audioSource);
@@ -189,10 +188,11 @@ namespace AE_Framework
         /// <param name="worldPosition"></param>
         /// <param name="isLoop"></param>
         /// <param name="callback"></param>
-        private async void ODPlaySoundMusic(AudioClip audioClip, Vector3 worldPosition, Action<AudioSource> callback = null, bool isLoop = false, float spatialBlend = 0, bool mute = false, float volumn = 0.5f)
+        private void ODPlaySoundMusic(AudioClip audioClip, Vector3 worldPosition,
+            Action<AudioSource> callback = null, bool isLoop = false, float spatialBlend = 0, bool mute = false,
+            float volumn = 0.5f)
         {
-            GameObject obj = await PoolMgr.Instance.GetGameObjAsync(AudioSourceResourcesDir);
-            obj.transform.SetLocalPositionAndRotation(worldPosition, Quaternion.identity);
+            GameObject obj = PoolMgr.GetGameObj(AudioSourceResourcesDir, worldPosition, Quaternion.identity);
             AudioSource audioSource = obj.GetComponent<AudioSource>();
             //添加进soundMusicList
             soundMusicList.Add(audioSource);
@@ -212,7 +212,8 @@ namespace AE_Framework
         /// <param name="callback"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        private IEnumerator RecycleAudioSource(AudioClip audioClip, GameObject obj, AudioSource audioSource, Action<AudioSource> callback = null, float time = 0f)
+        private IEnumerator RecycleAudioSource(AudioClip audioClip, GameObject obj, AudioSource audioSource,
+            Action<AudioSource> callback = null, float time = 0f)
         {
             // 延迟 Clip的长度（秒）
             yield return new WaitForSeconds(audioClip.length);
@@ -223,10 +224,11 @@ namespace AE_Framework
             if (obj != null)
             {
                 // 移除引用 放回池子
-                PoolMgr.Instance.PushGameObj("AudioSource", obj);
+                PoolMgr.PushGameObj("AudioSource", obj);
             }
         }
-        #endregion
+
+        #endregion 音效
 
         /// <summary>
         /// 释放所有AudioSource
@@ -237,14 +239,12 @@ namespace AE_Framework
 
             for (int i = soundMusicList.Count - 1; i >= 0; i--)
             {
-                ResMgr.Instance.Release(soundMusicList[i].clip);
-                if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Addressables)
-                    ResMgr.Instance.ReleaseInstance(soundMusicList[i].gameObject);
-                else
-                    GameObject.Destroy(soundMusicList[i].gameObject);
+                ResMgr.Release(soundMusicList[i].clip);
+                ResMgr.ReleaseInstance(soundMusicList[i].gameObject);
                 soundMusicList.RemoveAt(i);
             }
-            PoolMgr.Instance.ClearGameObject("AudioSource");
+
+            PoolMgr.ClearGameObject("AudioSource");
         }
     }
 }

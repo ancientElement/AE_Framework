@@ -1,12 +1,11 @@
 //using Sirenix.OdinInspector;
+
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using static AE_Framework.GameSettings;
 
 namespace AE_Framework
 {
@@ -18,9 +17,6 @@ namespace AE_Framework
     public class UIMgr : SingletonMonoMgr<UIMgr>
     {
         private Dictionary<Type, UIElement> UIElementDic => GameRoot.Instance.GameSetting.UIElementDic;
-
-        //Resources下的加载文件夹
-        private static readonly string UIResourcesDir = "UI/";
 
         /// <summary>
         /// 将canvas提供给外部
@@ -38,7 +34,7 @@ namespace AE_Framework
         /// <param name="layer">面板处在哪一个层级</param>
         /// <param name="callback">是否需要回调</param>
         /// <param name="isFull">是否是全屏面板</param>
-        public async void ShowPanel<T>(bool isFull = false, int layer = -1) where T : BasePanel
+        public void ShowPanel<T>(bool isFull = false, int layer = -1, params object[] args) where T : BasePanel
         {
             if (UIElementDic.ContainsKey(typeof(T)))
             {
@@ -53,10 +49,8 @@ namespace AE_Framework
                 else
                 {
                     string name = info.prefabAssetName;
-                    if (GameRoot.Instance.GameSetting.assetLoadMethod == AssetLoadMethod.Reaourses)
-                        name = UIResourcesDir + name;
-                    var res = await ResMgr.Instance.AutoLoadAsync<GameObject>(name);
-                    InitPanel(info, res, isFull);
+                    var res = ResMgr.AddressableLoad<GameObject>(name);
+                    InitPanel(info, res, isFull, args);
                 }
             }
         }
@@ -67,13 +61,13 @@ namespace AE_Framework
         /// <param name="uIElement"></param>
         /// <param name="res"></param>
         /// <param name="isFull"></param>
-        private void InitPanel(UIElement uIElement, GameObject res, bool isFull = false)
+        private void InitPanel(UIElement uIElement, GameObject res, bool isFull = false, params object[] args)
         {
             res.transform.SetParent(Layers[uIElement.layerNum], false);
             //得到面板脚本
             uIElement.objInstance = res.GetComponent<BasePanel>();
             //调用showMe
-            uIElement.objInstance.ShowMe();
+            uIElement.objInstance.ShowMe(args);
             RectTransform tf = res.GetComponent<RectTransform>();
             //设置位置 缩放 偏移
             tf.localPosition = Vector3.zero;
@@ -97,7 +91,7 @@ namespace AE_Framework
 
                 //调用面板的hindme
                 UIElementDic[typeof(T)].objInstance?.HindMe();
-                ResMgr.Instance.ReleaseInstance(UIElementDic[typeof(T)].objInstance.gameObject);
+                ResMgr.ReleaseInstance(UIElementDic[typeof(T)].objInstance.gameObject);
             }
         }
 
@@ -120,7 +114,8 @@ namespace AE_Framework
         /// <param name="control"></param>
         /// <param name="type"></param>
         /// <param name="callbak"></param>
-        public static void AddCustomEventListener(UIBehaviour control, EventTriggerType type, UnityAction<BaseEventData> callbak)
+        public static void AddCustomEventListener(UIBehaviour control, EventTriggerType type,
+            UnityAction<BaseEventData> callbak)
         {
             //创建 EventTrigger 组件
             EventTrigger eventTrigger = control.GetComponent<EventTrigger>();
@@ -129,9 +124,9 @@ namespace AE_Framework
 
             //为EventTrigger 组件添加事件
             EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = type;//指定事件类型
-            entry.callback.AddListener(callbak);//指定事件回调
-            eventTrigger.triggers.Add(entry);//添加事件进EventTrigger
+            entry.eventID = type; //指定事件类型
+            entry.callback.AddListener(callbak); //指定事件回调
+            eventTrigger.triggers.Add(entry); //添加事件进EventTrigger
         }
     }
 }

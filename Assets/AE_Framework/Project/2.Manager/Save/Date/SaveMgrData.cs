@@ -11,8 +11,10 @@ namespace AE_Framework
     {
         public string FileName;
         public string Path;
+
         // 当前的SaveItem
         public int currentSaveItemID = -1;
+
         // 所有存档的列表
         private List<SaveItem> saveItemList = new List<SaveItem>();
 

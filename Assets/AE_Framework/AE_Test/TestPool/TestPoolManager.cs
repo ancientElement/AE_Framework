@@ -1,10 +1,5 @@
 ﻿using AE_Framework;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class TestPoolManager : MonoBehaviour
@@ -13,7 +8,6 @@ public class TestPoolManager : MonoBehaviour
 
     private void Start()
     {
-
     }
 
     private void Update()
@@ -21,38 +15,41 @@ public class TestPoolManager : MonoBehaviour
         OnMouseClick();
     }
 
-    private async void OnMouseClick()
+    private void OnMouseClick()
     {
         if (Input.GetMouseButtonDown(0))
         {
             GameObject obj;
-            obj = await PoolMgr.Instance.GetGameObjAsync("Bullet");
+            obj = PoolMgr.GetGameObj("Bullet");
         }
+
         if (Input.GetMouseButtonDown(1))
         {
-            TestClass test = PoolMgr.Instance.GetObj<TestClass>();
+            TestClass test = PoolMgr.GetObj<TestClass>();
             test.name = tempString;
             test.Print();
-            PoolMgr.Instance.PushObj<TestClass>(test);
+            PoolMgr.PushObj<TestClass>(test);
         }
+
         if (Input.GetMouseButtonDown(2))
         {
-            TestClass test = PoolMgr.Instance.GetObj<TestClass>();
+            TestClass test = PoolMgr.GetObj<TestClass>();
             test.Print();
-            PoolMgr.Instance.PushObj<TestClass>(test);
+            PoolMgr.PushObj<TestClass>(test);
         }
     }
 
     [Button]
     private void Clear()
     {
-        PoolMgr.Instance.ClearGameObject("Bullet");
+        PoolMgr.ClearGameObject("Bullet");
     }
 }
 
 public class TestClass
 {
     public string name = "@@@";
+
     public void Print()
     {
         Debug.Log(name);

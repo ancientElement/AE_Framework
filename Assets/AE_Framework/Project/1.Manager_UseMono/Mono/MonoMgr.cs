@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Internal;
 
 namespace AE_Framework
 {
@@ -10,7 +6,9 @@ namespace AE_Framework
     {
         //更新事件
         private event Action updateEvent = null;
+
         private event Action lateUpdateEvent = null;
+
         private event Action fixedUpdateEvent = null;
 
         private void Update()
@@ -18,10 +16,12 @@ namespace AE_Framework
             //调用帧更新事件
             updateEvent?.Invoke();
         }
+
         private void LateUpdate()
         {
             lateUpdateEvent?.Invoke();
         }
+
         private void FixedUpdate()
         {
             fixedUpdateEvent?.Invoke();

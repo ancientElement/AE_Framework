@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.Video;
+﻿using UnityEngine;
 
 namespace AE_Framework
 {
@@ -8,6 +6,7 @@ namespace AE_Framework
     {
         public abstract void Init();
     }
+
     public abstract class SingletonMonoMgr<T> : SingletonMonoMgr where T : SingletonMonoMgr<T>
     {
         public static T Instance;

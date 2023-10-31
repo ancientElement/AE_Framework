@@ -1,6 +1,4 @@
 ﻿//using Sirenix.OdinInspector.Editor;
-using UnityEditor;
-using UnityEngine;
 
 namespace AE_Framework
 {
