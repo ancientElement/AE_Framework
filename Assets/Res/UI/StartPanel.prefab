@@ -273,7 +273,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8168253096997493038}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8168253098067711134}
+        m_TargetAssemblyTypeName: StartPanel, Assembly-CSharp
+        m_MethodName: Print
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Start
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8168253097060028501
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8168253097060028502}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8168253098067711134}
+        m_TargetAssemblyTypeName: StartPanel, Assembly-CSharp
+        m_MethodName: Print
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Exit
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8168253098067711132
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AImage: {fileID: 2012225686268039902}
   BImage: {fileID: 7158196423223502371}
+  btnStart: {fileID: 0}
+  btnExit: {fileID: 0}
 --- !u!1 &8168253098223232516
 GameObject:
   m_ObjectHideFlags: 0
